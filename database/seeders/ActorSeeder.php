@@ -14,7 +14,7 @@ class ActorSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('actors')->delete();
+        // DB::table('actors')->delete();
 
         DB::table('actors')->insert([
             [
