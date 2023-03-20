@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Actor;
+use App\Models\Movie;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreActorRequest;
 use App\Http\Requests\UpdateActorRequest;
 
@@ -14,7 +15,8 @@ class AdminActorController extends Controller
      */
     public function index()
     {
-        //
+        $actors = Actor::get();
+        return view('admin.actors.index', compact('actors'));
     }
 
     /**
@@ -22,7 +24,8 @@ class AdminActorController extends Controller
      */
     public function create()
     {
-        //
+        $movies = Movie::get();
+        return view('admin.actors.create', compact('movies'));
     }
 
     /**
@@ -30,7 +33,8 @@ class AdminActorController extends Controller
      */
     public function store(StoreActorRequest $request)
     {
-        //
+        Actor::create($request->all());
+        return to_route('admin.actors.index');
     }
 
     /**
@@ -46,7 +50,7 @@ class AdminActorController extends Controller
      */
     public function edit(Actor $actor)
     {
-        //
+        return view('admin.actors.edit', compact('actor'));
     }
 
     /**
@@ -54,7 +58,8 @@ class AdminActorController extends Controller
      */
     public function update(UpdateActorRequest $request, Actor $actor)
     {
-        //
+        $actor->fill($request->all())->save();
+        return to_route('admin.actors.index');
     }
 
     /**

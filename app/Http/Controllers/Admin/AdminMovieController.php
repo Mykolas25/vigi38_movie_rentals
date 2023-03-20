@@ -42,7 +42,7 @@ class AdminMovieController extends Controller
      */
     public function show(Movie $movie)
     {
-        dd($movie->title);
+         //
     }
 
     /**

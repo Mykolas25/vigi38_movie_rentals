@@ -46,7 +46,6 @@ class AdminCountryController extends Controller
      */
     public function edit(Country $country)
     {
-        dd($country);
         //
     }
 

@@ -5,8 +5,6 @@
     <div class="card-header">
         <h3 class="card-title">Keisti filmą [<?= ($movie->title ?? ''); ?>][<?= ($movie->id ?? ''); ?>]</h3>
     </div>
-    <!-- /.card-header -->
-    <!-- form start -->
     <form action="{{ route('admin.movies.update', $movie) }}" method="POST">
         @method('put')
         @csrf
@@ -55,13 +53,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
         </div>
-        <!-- /.card-body -->
-
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>

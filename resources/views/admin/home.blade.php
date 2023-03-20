@@ -1,1 +1,4 @@
-HOME BLADE
+@extends('admin.layouts.document')
+
+@section('content')
+@endsection
