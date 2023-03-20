@@ -34,6 +34,14 @@
                 <label for="rating">Reitingas</label>
                 <input type="text" class="form-control" maxlength="5" name="rating" value="<?= ($movie->rating ?? ''); ?>" id="rating" placeholder="Reitingas">
             </div>
+           
+            <x-forms.multi-relation-select :tagName="'genres'" :model="$movie" :relationItems="$genres"/>
+
+            <x-forms.multi-relation-select :tagName="'languages'" :model="$movie" :relationItems="$languages"/>
+
+            <x-forms.multi-relation-select :tagName="'countries'" :model="$movie" :relationItems="$countries"/>
+
+            <x-forms.multi-relation-select :tagName="'actors'" :model="$movie" :relationItems="$actors" optionDispaly="first_name"/>
 
             <div class="form-group">
                 <label for="image">Nuotrauka</label>

@@ -19,6 +19,10 @@ use App\Http\Controllers\Admin\AdminLanguageController;
 |
 */
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminHomeController::class, 'index'])->name('home');
     Route::resources([

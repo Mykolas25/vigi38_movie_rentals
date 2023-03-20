@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Actor;
 use App\Models\Genre;
 use App\Models\Movie;
+use App\Models\Country;
+use App\Models\Language;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
@@ -50,7 +53,11 @@ class AdminMovieController extends Controller
      */
     public function edit(Movie $movie)
     {
-        return view('admin.movies.edit', compact('movie'));
+        $genres = Genre::get();
+        $languages = Language::get();
+        $countries = Country::get();
+        $actors = Actor::get();
+        return view('admin.movies.edit', compact('movie','genres','languages','countries','actors'));
     }
 
     /**
@@ -58,6 +65,10 @@ class AdminMovieController extends Controller
      */
     public function update(UpdateMovieRequest $request, Movie $movie)
     {
+        $movie->genres()->sync($request->get('genres'));
+        $movie->countries()->sync($request->get('countries'));
+        $movie->languages()->sync($request->get('languages'));
+        $movie->actors()->sync($request->get('actors'));
         $movie->fill($request->all())->save();
         return to_route('admin.movies.index');
     }

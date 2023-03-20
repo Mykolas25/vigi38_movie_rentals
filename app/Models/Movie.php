@@ -26,7 +26,7 @@ class Movie extends Model
     ];
 
     //Always query with these relations
-    public $with = ['genres','languages','countries'];
+    public $with = ['genres','languages','countries', 'actors'];
 
     /**
      * @return BelongsToMany
@@ -50,6 +50,14 @@ class Movie extends Model
     public function countries(): BelongsToMany
     {
         return $this->belongsToMany(Country::class);
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function actors(): BelongsToMany
+    {
+        return $this->belongsToMany(Actor::class);
     }
 
 }
