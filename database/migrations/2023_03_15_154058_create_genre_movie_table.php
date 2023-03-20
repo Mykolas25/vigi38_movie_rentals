@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('genre_movie', function (Blueprint $table) {
             $table->foreignId('genre_id')->constrained();
             $table->foreignId('movie_id')->constrained();
-            $table->unique(["genre_id", "movie_id"], 'genre_id_movie_id_unique');
+            $table->unique('genre_id');
+            $table->unique('movie_id');
+            // $table->unique(["genre_id", "movie_id"], 'genre_id_movie_id_unique');
         });
     }
 
