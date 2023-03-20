@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Genre;
 use App\Models\Movie;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
 
@@ -15,7 +16,7 @@ class AdminMovieController extends Controller
     public function index()
     {
         $movies = Movie::get();
-        dd($movies[0]->genres);
+        return view('admin.movies.index', compact('movies'));
     }
 
     /**
@@ -23,7 +24,8 @@ class AdminMovieController extends Controller
      */
     public function create()
     {
-        dd('CREATE METHOD');
+        $genres = Genre::get();
+        return view('admin.movies.create', compact('genres'));
     }
 
     /**
@@ -31,7 +33,8 @@ class AdminMovieController extends Controller
      */
     public function store(StoreMovieRequest $request)
     {
-        //
+        Movie::create($request->all());
+        return to_route('admin.movies.index');
     }
 
     /**
@@ -47,7 +50,7 @@ class AdminMovieController extends Controller
      */
     public function edit(Movie $movie)
     {
-        dd($movie);
+        return view('admin.movies.edit', compact('movie'));
     }
 
     /**
@@ -55,7 +58,8 @@ class AdminMovieController extends Controller
      */
     public function update(UpdateMovieRequest $request, Movie $movie)
     {
-        //
+        $movie->fill($request->all())->save();
+        return to_route('admin.movies.index');
     }
 
     /**

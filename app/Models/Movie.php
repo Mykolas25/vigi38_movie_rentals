@@ -26,7 +26,6 @@ class Movie extends Model
 
     //Always query with these relations
     public $with = ['genres','languages','countries'];
-
     
     /**
      * @return BelongsToMany
