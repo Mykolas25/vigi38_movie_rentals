@@ -29,7 +29,7 @@ class MultiRelationSelect extends Component
         /**
          * Attribute of model that is displayed in select 
          */
-        public string $optionDispaly = 'name',
+        public string $optionDisplay = 'name',
         /**
          * Name of relations model
          */

@@ -65,11 +65,7 @@ class AdminMovieController extends Controller
      */
     public function update(UpdateMovieRequest $request, Movie $movie)
     {
-        $movie->genres()->sync($request->get('genres'));
-        $movie->countries()->sync($request->get('countries'));
-        $movie->languages()->sync($request->get('languages'));
-        $movie->actors()->sync($request->get('actors'));
-        $movie->fill($request->all())->save();
+        $movie->customUpdate($request);
         return to_route('admin.movies.index');
     }
 
@@ -78,6 +74,7 @@ class AdminMovieController extends Controller
      */
     public function destroy(Movie $movie)
     {
-        //
+        $movie->delete();
+        return response()->json(['success'=>true]);
     }
 }

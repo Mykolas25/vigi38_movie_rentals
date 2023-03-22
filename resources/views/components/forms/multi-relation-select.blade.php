@@ -3,7 +3,7 @@
     
     @foreach($relationItems as $relationItem)
         <option {{ ($selected($relationItem) ? 'selected' : '') }} value="{{$relationItem->id}}">
-            {{$relationItem->$optionDispaly}}
+            {{$relationItem->$optionDisplay}}
         </option>
     @endforeach
 
