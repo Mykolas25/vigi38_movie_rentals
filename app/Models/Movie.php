@@ -5,13 +5,13 @@ namespace App\Models;
 use App\Models\Genre;
 use App\Models\Country;
 use App\Models\Language;
+use App\Models\MovieImage;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -73,31 +73,77 @@ class Movie extends Model
         return $this->hasMany(MovieImage::class);
     }
 
+    public static function customCreate(Request $request): self
+    {
+        return DB::transaction(function () use ($request) {
+            $image = $request->file('image');
+            $inputs = $request->input();
+            $inputs['image'] = $image?->getClientOriginalName() ?? '';
+
+            $movie = self::create($inputs);
+            $movie->syncAll($request);
+
+            //Upload and insert multiple images 
+            if ($images = $request->file('images')) {
+                $images = $movie->uploadImages($images);
+                $movie->insertImages($images);
+            }
+
+            //Upload cover image 
+            if ($image = $request->file('image')) {
+                $images = $movie->uploadImages([$image]);
+            }
+
+            return $movie;
+        });
+    }
+
     public function customUpdate(Request $request): self
+    {
+        DB::transaction(function () use ($request) {
+            //Old images
+            $oldImages = $request->input('old_images') ?? [];
+            //Detach old images
+            MovieImage::where('movie_id', $this->id)->whereNotIn('name', $oldImages)->forceDelete();
+
+            //Upload and insert multiple images
+            if ($images = $request->file('images')) {
+                $images = $this->uploadImages($images);
+                $this->insertImages($images);
+            }
+
+            //Upload cover image 
+            if ($image = $request->file('image')) {
+                $images = $this->uploadImages([$image]);
+            }
+
+            $inputs = $request->input();
+            $inputs['image'] = $request->file('image')?->getClientOriginalName() ?? '';
+
+            $this->syncAll($request)->fill($inputs)->save();
+        });
+
+        return $this;
+    }
+
+    public function insertImages($images): self
+    {
+        collect($images)->each(function (string $item, int $key) {
+            MovieImage::updateOrCreate([
+                'name' => $item,
+                'movie_id' => $this->id
+            ]);
+        });
+
+        return $this;
+    }
+
+    public function syncAll(Request $request): self
     {
         $this->genres()->sync($request->get('genres'));
         $this->countries()->sync($request->get('countries'));
         $this->languages()->sync($request->get('languages'));
         $this->actors()->sync($request->get('actors'));
-
-        //New Images
-        $images = $request->file('images');
-        //Old Images
-        $oldImages = $request->input('old_images') ?? [];
-        //Detach old images
-        MovieImage::where('movie_id',$this->id)->whereNotIn('name', $oldImages)->forceDelete();
-        //Create or update images - attach new images
-        if ($images) {
-            $images = $this->uploadImages($images);
-            collect($images)->each(function (string $item, int $key) {
-                MovieImage::updateOrCreate([
-                    'name' => $item,
-                    'movie_id' => $this->id
-                ]);
-            });
-        }
-
-        $this->fill($request->input())->save();
 
         return $this;
     }
@@ -115,14 +161,13 @@ class Movie extends Model
             $paths[] = $imageName;
 
             if (Storage::exists("public/images/$imageName")) {
-               continue;
+                continue;
             }
 
             $image->storeAs(
                 'public/images',
                 $image->getClientOriginalName()
             );
-
         }
 
         return $paths;

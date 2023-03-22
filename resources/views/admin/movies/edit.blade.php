@@ -49,9 +49,8 @@
                 <x-forms.multi-relation-select :tagName="'actors'" :model="$movie" :relationItems="$actors" :optionDisplay="'fullName'" />
 
                 <div class="form-group">
-                    <label for="image">Nuotrauka</label>
-                    <input type="text" class="form-control" name="image" value="{{ $movie->image ?? '' }}"
-                        id="image" placeholder="Nuotrauka">
+                    <label for="cover-image">Viršelio nuotrauka</label>
+                    <input type="file" class="form-control" name="image" id="cover-image" placeholder="Viršelio nuotrauka">
                 </div>
 
                 <div class="form-group">

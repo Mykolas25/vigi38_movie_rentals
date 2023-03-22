@@ -32,7 +32,7 @@
                             <tr>
                                 <td>{{ ($movie->id ?? '')}} </td>
                                 <td>
-                                    <img width="100" src="{{ asset('storage/images/'.($movie->images[0]->name ?? ""))}} ">
+                                    <img width="100" src="{{ asset('storage/images/'.($movie->image ?? "noimage.jpg"))}} ">
                                 </td>
                                 <td> {{ ($movie->title ?? '') }} </td>
                                 <td> {{ ($movie->release_date ?? '') }} </td>

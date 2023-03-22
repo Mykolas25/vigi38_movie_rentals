@@ -37,7 +37,7 @@ class AdminMovieController extends Controller
      */
     public function store(StoreMovieRequest $request)
     {
-        Movie::create($request->all());
+        Movie::customCreate($request);
         return to_route('admin.movies.index');
     }
 

@@ -36,14 +36,12 @@
             </div>
 
             <div class="form-group">
-                <label for="image">Nuotrauka</label>
-                <input type="text" class="form-control" name="image" id="image" placeholder="Nuotrauka">
+                <label for="cover-image">Viršelio nuotrauka</label>
+                <input type="file" class="form-control" name="image" id="cover-image" placeholder="Viršelio nuotrauka">
             </div>
 
             <div class="form-group">
-                <div class="form-group">
-                    <x-forms.image-input :images="$movie->images" />
-                </div>
+                <x-forms.image-input/>
             </div>
         </div>
         <div class="card-footer">
