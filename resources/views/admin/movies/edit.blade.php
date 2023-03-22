@@ -5,7 +5,7 @@
     <div class="card-header">
         <h3 class="card-title">Keisti filmą [<?= ($movie->title ?? ''); ?>][<?= ($movie->id ?? ''); ?>]</h3>
     </div>
-    <form action="{{ route('admin.movies.update', $movie) }}" method="POST">
+    <form action="{{ route('admin.movies.update', $movie) }}" method="POST" enctype="multipart/form-data">
         @method('put')
         @csrf
         <input type="hidden" name="id" value="<?= ($movie->id ?? ''); ?>">
@@ -34,34 +34,25 @@
                 <label for="rating">Reitingas</label>
                 <input type="text" class="form-control" maxlength="5" name="rating" value="<?= ($movie->rating ?? ''); ?>" id="rating" placeholder="Reitingas">
             </div>
-           
+         
             <x-forms.multi-relation-select :tagName="'genres'" :model="$movie" :relationItems="$genres"/>
 
             <x-forms.multi-relation-select :tagName="'languages'" :model="$movie" :relationItems="$languages"/>
 
             <x-forms.multi-relation-select :tagName="'countries'" :model="$movie" :relationItems="$countries"/>
 
-            <x-forms.multi-relation-select :tagName="'actors'" :model="$movie" :relationItems="$actors" optionDispaly="first_name"/>
-
+            <x-forms.multi-relation-select :tagName="'actors'" :model="$movie" :relationItems="$actors" :optionDisplay="'fullName'"/>
+          
             <div class="form-group">
                 <label for="image">Nuotrauka</label>
                 <input type="text" class="form-control" name="image" value="<?= ($movie->image ?? ''); ?>" id="image" placeholder="Nuotrauka">
             </div>
 
-
             <div class="form-group">
-                <label for="exampleInputFile">File input</label>
-                <div class="input-group">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                    </div>
-                    <div class="input-group-append">
-                        <span class="input-group-text">Upload</span>
-                    </div>
-                </div>
+                <x-forms.image-input/>
             </div>
         </div>
+
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>

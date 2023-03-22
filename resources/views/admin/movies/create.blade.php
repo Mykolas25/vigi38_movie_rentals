@@ -7,7 +7,7 @@
     </div>
     <!-- /.card-header -->
     <!-- form start -->
-    <form action="{{ route('admin.movies.store') }}" method="POST">
+    <form action="{{ route('admin.movies.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="card-body">
             <div class="form-group">

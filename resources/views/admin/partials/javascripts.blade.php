@@ -17,21 +17,9 @@
 <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 <!-- Select2 -->
 <script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js')}}"></script>
+
+<script src="{{ asset('adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
-<!-- Page specific script -->
-<script>
-$(function() {
-  $("#example1").DataTable({
-    "responsive": true,
-    "lengthChange": false,
-    "autoWidth": false,
-    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-  }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
-  //Initialize Select2 Elements
-  $('.select2bs4').select2({
-    theme: 'bootstrap4'
-  })
-});
-</script>
+<script src="{{ asset('js/admin/app.js') }}"></script>
