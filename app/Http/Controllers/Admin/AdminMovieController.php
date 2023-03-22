@@ -7,6 +7,7 @@ use App\Models\Genre;
 use App\Models\Movie;
 use App\Models\Country;
 use App\Models\Language;
+use App\Models\MovieImage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
@@ -57,6 +58,7 @@ class AdminMovieController extends Controller
         $languages = Language::get();
         $countries = Country::get();
         $actors = Actor::get();
+
         return view('admin.movies.edit', compact('movie','genres','languages','countries','actors'));
     }
 

@@ -50,15 +50,25 @@ const app = (() => {
         $(".select2bs4").select2({
             theme: "bootstrap4",
         });
-    };
+    }
 
     const inputInit = () => {
         bsCustomFileInput.init();
     };
-  
+
+    const removeImage = () => {
+        const removes = document.querySelectorAll('.remove-image');
+
+        removes.forEach(function (remove, index) {
+            remove.addEventListener('click', function (e) {
+                e.target.closest('.old-images-block').remove();
+            })
+        })
+    };
+
     return {
         init: () => {
-            deleteRecord(), dataTable(), select2(), inputInit()
+            deleteRecord(), dataTable(), select2(), inputInit(), removeImage()
         },
     };
 })();

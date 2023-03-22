@@ -8,9 +8,11 @@ use App\Models\Language;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -29,7 +31,7 @@ class Movie extends Model
     ];
 
     //Always query with these relations
-    public $with = ['genres', 'languages', 'countries', 'actors'];
+    public $with = ['genres', 'languages', 'countries', 'actors', 'images'];
 
     /**
      * @return BelongsToMany
@@ -63,15 +65,28 @@ class Movie extends Model
         return $this->belongsToMany(Actor::class);
     }
 
-    public function customUpdate(Request $request)
+    /**
+     * @return HasMany
+     */
+    public function images(): HasMany
+    {
+        return $this->hasMany(MovieImage::class);
+    }
+
+    public function customUpdate(Request $request): self
     {
         $this->genres()->sync($request->get('genres'));
         $this->countries()->sync($request->get('countries'));
         $this->languages()->sync($request->get('languages'));
         $this->actors()->sync($request->get('actors'));
 
+        //New Images
         $images = $request->file('images');
-
+        //Old Images
+        $oldImages = $request->input('old_images') ?? [];
+        //Detach old images
+        MovieImage::where('movie_id',$this->id)->whereNotIn('name', $oldImages)->forceDelete();
+        //Create or update images - attach new images
         if ($images) {
             $images = $this->uploadImages($images);
             collect($images)->each(function (string $item, int $key) {
@@ -81,8 +96,10 @@ class Movie extends Model
                 ]);
             });
         }
-        
+
         $this->fill($request->input())->save();
+
+        return $this;
     }
 
     public function uploadImages(array $images): array
@@ -95,11 +112,17 @@ class Movie extends Model
             }
 
             $imageName = $image->getClientOriginalName();
+            $paths[] = $imageName;
+
+            if (Storage::exists("public/images/$imageName")) {
+               continue;
+            }
+
             $image->storeAs(
                 'public/images',
                 $image->getClientOriginalName()
             );
-            $paths[] = $imageName;
+
         }
 
         return $paths;
