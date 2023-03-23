@@ -78,7 +78,7 @@ class Movie extends Model
         return DB::transaction(function () use ($request) {
             $image = $request->file('image');
             $inputs = $request->input();
-            $inputs['image'] = $image?->getClientOriginalName() ?? '';
+            $inputs['image'] = $image?->getClientOriginalName() ?? 'noimage.jpg'; 
 
             $movie = self::create($inputs);
             $movie->syncAll($request);
@@ -107,18 +107,19 @@ class Movie extends Model
             MovieImage::where('movie_id', $this->id)->whereNotIn('name', $oldImages)->forceDelete();
 
             //Upload and insert multiple images
+           
             if ($images = $request->file('images')) {
                 $images = $this->uploadImages($images);
                 $this->insertImages($images);
             }
 
             //Upload cover image 
+            $inputs = $request->input();
             if ($image = $request->file('image')) {
                 $images = $this->uploadImages([$image]);
             }
-
-            $inputs = $request->input();
-            $inputs['image'] = $request->file('image')?->getClientOriginalName() ?? '';
+             
+            $inputs['image'] =  $request->file('image')?->getClientOriginalName() ?? $request->get('old_cover_image') ?? 'noimage.jpg'; 
 
             $this->syncAll($request)->fill($inputs)->save();
         });

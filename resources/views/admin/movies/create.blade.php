@@ -34,16 +34,23 @@
                 <label for="rating">Reitingas</label>
                 <input type="text" class="form-control" maxlength="5" name="rating" id="rating" placeholder="Reitingas">
             </div>
+            <x-forms.multi-relation-select :tagName="'genres'" :relationItems="$genres" />
 
+            <x-forms.multi-relation-select :tagName="'languages'" :relationItems="$languages" />
+
+            <x-forms.multi-relation-select :tagName="'countries'" :relationItems="$countries" />
+
+            <x-forms.multi-relation-select :tagName="'actors'" :relationItems="$actors" :optionDisplay="'fullName'" />
+            
             <div class="form-group">
-                <label for="cover-image">Viršelio nuotrauka</label>
-                <input type="file" class="form-control" name="image" id="cover-image" placeholder="Viršelio nuotrauka">
+                <x-forms.image-input :label="'cover-image'" :inputName="'image'" :oldInputName="'old_cover_image'"/>
             </div>
 
-            <div class="form-group">
-                <x-forms.image-input/>
+            <div class="form-group">    
+                <x-forms.image-input :label="'images'" :inputName="'images[]'" :oldInputName="'old_images[]'"/>
             </div>
         </div>
+        
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>

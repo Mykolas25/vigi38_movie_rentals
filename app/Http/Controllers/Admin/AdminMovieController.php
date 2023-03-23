@@ -8,6 +8,7 @@ use App\Models\Movie;
 use App\Models\Country;
 use App\Models\Language;
 use App\Models\MovieImage;
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
@@ -29,7 +30,10 @@ class AdminMovieController extends Controller
     public function create()
     {
         $genres = Genre::get();
-        return view('admin.movies.create', compact('genres'));
+        $languages = Language::get();
+        $countries = Country::get();
+        $actors = Actor::get();
+        return view('admin.movies.create',  compact('genres','languages','countries','actors'));
     }
 
     /**

@@ -13,10 +13,19 @@ class ImageInput extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public Collection $images
+        public string $label,
+        public string $oldInputName,
+        public Collection|array $images = [],
+        public string $inputName = '',
+        public string $inputId = ''
     )
     {
-        //
+        if(!$this->inputName){
+            $this->inputName = $this->label;
+        }
+        if(!$this->inputId){
+            $this->inputId = $this->label;
+        }
     }
 
     /**

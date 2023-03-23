@@ -15,10 +15,6 @@ class MultiRelationSelect extends Component
      */
     public function __construct(
         /**
-         * Model instance
-         */
-        public Model $model,
-        /**
          * Collection of model realtions
          */
         public Collection|array $relationItems,
@@ -26,6 +22,10 @@ class MultiRelationSelect extends Component
          * Name of select tag
          */
         public string $tagName,
+         /**
+         * Model instance
+         */
+        public ?Model $model = null,
         /**
          * Attribute of model that is displayed in select 
          */
@@ -47,7 +47,7 @@ class MultiRelationSelect extends Component
 
     public function selected($relationItem)
     {
-        return $this->model->{$this->relationName}->contains($relationItem->id);     
+        return $this->model?->{$this->relationName}->contains($relationItem->id);     
     }
 
     /**

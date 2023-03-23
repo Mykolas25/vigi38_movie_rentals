@@ -8,5 +8,3 @@
     @endforeach
 
 </select>
-
-{{-- {{dd($model, $relationItems, $tagName)}} --}}
