@@ -4,69 +4,83 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Actor;
 use App\Models\Movie;
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreActorRequest;
 use App\Http\Requests\UpdateActorRequest;
 
 class AdminActorController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the actor resource.
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
-        $actors = Actor::get();
-        return view('admin.actors.index', compact('actors'));
+        $models = Actor::get();
+        return view('admin.actors.index', compact('models'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new actor resource.
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
-        $movies = Movie::get();
-        return view('admin.actors.create', compact('movies'));
+        $model = Actor::get();
+        return view('admin.actors.create', compact('model'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created actor resource in database.
+     * @param StoreActorRequest $request
+     * @return RedirectResponse
      */
-    public function store(StoreActorRequest $request)
+    public function store(StoreActorRequest $request): RedirectResponse
     {
         Actor::create($request->all());
         return to_route('admin.actors.index');
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified actor resource.
      */
-    public function show(Actor $actor)
+    public function show(Actor $actor): Void
     {
         //
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified actor resource.
+     * @param Actor $model
+     * @return View
      */
-    public function edit(Actor $actor)
+    public function edit(Actor $actor): View
     {
-        return view('admin.actors.edit', compact('actor'));
+        $model = $actor;
+        return view('admin.actors.edit', compact('model'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified actor resource in database.
+     * @param UpdateActorRequest $request
+     * @param Actor $model
+     *
+     * @return RedirectResponse
      */
-    public function update(UpdateActorRequest $request, Actor $actor)
+    public function update(UpdateActorRequest $request, Actor $actor): RedirectResponse
     {
         $actor->fill($request->all())->save();
         return to_route('admin.actors.index');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified actor resource from storage.
      */
-    public function destroy(Actor $actor)
+    public function destroy(Actor $actor): string
     {
-        //
+        $actor->delete();
+        return response()->json(['success'=>true]);
     }
 }
