@@ -33,6 +33,7 @@ return [
     //L
     'languages' => 'languages',
     'last_name' => 'last name',
+    'list' => 'list',
 
     //M
     'min' => 'min',

@@ -4,7 +4,7 @@ return [
     //A
     'actions' => 'veiksmai',
     'actor' => 'aktorius',
-    'actors' => 'actoriai',
+    'actors' => 'aktoriai',
 
     //B
 
@@ -33,6 +33,7 @@ return [
     //L
     'languages' => 'kalbos',
     'last_name' => 'pavardė',
+    'list' => 'sąrašas',
 
     //M
     'min' => 'min',
