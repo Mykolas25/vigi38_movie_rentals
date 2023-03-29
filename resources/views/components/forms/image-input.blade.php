@@ -10,7 +10,7 @@
     @endforeach
 </div>
 
-<label for="{{$label}}">{{$label}}</label>
+<label for="{{$label}}">@langTitle("app.$label")</label>
 <div class="input-group">
     <div class="custom-file">
         <input multiple type="file" class="custom-file-input" name="{{$inputName}}" id="{{$inputId}}">
