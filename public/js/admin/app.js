@@ -33,7 +33,7 @@ const app = (() => {
     };
 
     const dataTable = () => {
-        $("#example1")
+        $("#admin-table")
             .DataTable({
                 responsive: true,
                 lengthChange: false,
