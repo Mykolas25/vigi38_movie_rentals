@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Actor;
-use App\Models\Movie;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -76,7 +75,10 @@ class AdminActorController extends Controller
     }
 
     /**
-     * Remove the specified actor resource from storage.
+     * Remove the specified actor resource from database.
+     * @param Actor $actor
+     *
+     * @return string
      */
     public function destroy(Actor $actor): string
     {
