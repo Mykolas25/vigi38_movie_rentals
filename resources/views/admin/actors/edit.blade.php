@@ -1,4 +1,4 @@
-@extends('admin.layouts.document')
+@extends('admin.layouts.document', ['title' => Str::title(__('app.actors'))])
 
 @section('content')
     <div class="card card-primary">
