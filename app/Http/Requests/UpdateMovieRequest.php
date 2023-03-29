@@ -24,7 +24,18 @@ class UpdateMovieRequest extends FormRequest
         return [
             'title' => 'required|max:255',
             'release_date' => 'required|date',
-            'runtime' => 'required|numeric|max_digits:2',
+            'description' => 'required',
+            'description' => 'required|string',
+            'runtime' => 'required|numeric|max_digits:3',
+            'rating' => 'required|max:5',
+            'genres' => 'required|array|min:1',
+            'countries' => 'required|array|min:1',
+            'actors' => 'required|array|min:1',
+            'languages' => 'required|array|min:1',
+            'genres.*' => 'required|exists:genres,id',
+            'countries.*' => 'required|exists:countries,id',
+            'actors.*' => 'required|exists:actors,id',
+            'languages.*' => 'required|exists:languages,id',
         ];
     }
 }
