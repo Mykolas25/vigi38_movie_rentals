@@ -20,6 +20,7 @@ return [
 
     //E
     'edit' => 'keisti',
+    'email' => 'el.paštas',
 
     //F
     'first_name' => 'vardas',
@@ -34,20 +35,33 @@ return [
     'languages' => 'kalbos',
     'last_name' => 'pavardė',
     'list' => 'sąrašas',
+    'logout' => 'atsijungti',
 
     //M
     'min' => 'min',
     'movies' => 'filmai',
+    'movie_rentals' => 'filmų nuoma',
 
     //N
     'new' => 'naujas',
 
+    //O
+
+    //P
+    'password' => 'slaptažodis',
+    'password_confirmation' => 'slaptažodžio patvirtinimas',
+    'please_login' => 'prašome prisijungti',
+
     //R
     'rating' => 'reitingas',
     'release_date' => 'data',
+    'register' => 'registracija',
+    'registration_successful' => 'registracija sėkminga',
+    'registration_unsuccessful' => 'registration nesėkminga',
     'runtime' => 'trukmė',
 
     //S
+    'sign_in' => 'prisijungti',
     'submit' => 'pateikti',
 
     //T

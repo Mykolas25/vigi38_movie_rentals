@@ -20,6 +20,7 @@ return [
 
     //E
     'edit' => 'edit',
+    'email' => 'email',
 
     //F
     'first_name' => 'first name',
@@ -34,20 +35,33 @@ return [
     'languages' => 'languages',
     'last_name' => 'last name',
     'list' => 'list',
+    'logout' => 'logout',
 
     //M
     'min' => 'min',
     'movies' => 'movies',
+    'movie_rentals' => 'movie rentals',
 
     //N
     'new' => 'new',
 
+    //O
+
+    //P
+    'password' => 'password',
+    'password_confirmation' => 'password confirmation',
+    'please_login' => 'please login',
+
     //R
     'rating' => 'rating',
-    'release_date' => 'date',
+    'release_date' => 'release_date',
+    'register' => 'register',
+    'registration_successful' => 'registration successful',
+    'registration_unsuccessful' => 'registration unsuccessful',
     'runtime' => 'runtime',
 
     //S
+    'sign_in' => 'sign in',
     'submit' => 'submit',
 
     //T
