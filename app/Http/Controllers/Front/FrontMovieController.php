@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Front;
 
 use App\Models\Movie;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 
 class FrontMovieController extends Controller
