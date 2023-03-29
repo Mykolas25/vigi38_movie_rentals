@@ -1,15 +1,49 @@
 <?php
 
 return [
+    //A
+    'actions' => 'actions',
     
-    'image' => 'image',
-    'title' => 'title',
+    //C
+    'countries' => 'countries',
+    'created_at' => 'created at',
     
+    //D
     'date' => 'date',
     'description' => 'description',
-    'runtime' => 'runtime',
+    
+    //G
+    'genres' => 'genres',
+
+    //I
+    'image' => 'image',
+
+    //L
+    'languages' => 'languages',
+
+    //M
+    'min' => 'min',
+    'movies' => 'movies',
+
+    //R
     'rating' => 'rating',
-    'created_at' => 'created at',
+    'release_date' => 'date',
+    'runtime' => 'runtime',
+
+    //T
+    'title' => 'title',
+         
+    //U
     'updated_at' => 'updated at',
-    'actions' => 'actions',
+
+  
+    
+    
+    
+    
+    
+    
+    
+   
+    
 ];

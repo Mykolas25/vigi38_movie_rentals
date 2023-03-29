@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminHomeController;
+use App\Http\Controllers\Front\FrontHomeController;
+use App\Http\Controllers\Front\FrontMovieController;
 use App\Http\Controllers\Admin\AdminActorController;
 use App\Http\Controllers\Admin\AdminGenreController;
 use App\Http\Controllers\Admin\AdminMovieController;
@@ -32,4 +34,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         'countries' => AdminCountryController::class,
         'genres' => AdminGenreController::class,
     ]);
+});
+
+Route::name('front.')->group(function () {
+    Route::get('/', [FrontHomeController::class, 'index'])->name('home');
+    Route::resource('movies', FrontMovieController::class)->only(['index', 'show']);
 });
